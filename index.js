@@ -50,8 +50,10 @@ app.get("/read-spec-data/:cred", (req, res) => {
 // 3. Data Storing API
 app.post("/post-data", (req, res) => {
     const data = req.body;
-    const query = "INSERT INTO user_data (device_cred, v_solar, i_solar, p_solar, pf_solar, e_solar, v_load, i_load, p_load, pf_load, e_load) VALUES (?)";
+    const query = "INSERT INTO user_data (device_cred, v_solar, i_solar, p_solar, pf_solar, e_solar, v_load, i_load, p_load, pf_load, e_load, timestamp) VALUES (?)";
+    const date = new Date();
     const values = Object.values(data);
+    values.add(date);
 
     db.query(query, [values], (err, response) => {
         if (err) throw err;
